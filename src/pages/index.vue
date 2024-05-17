@@ -1,7 +1,5 @@
 <template>
-  <HelloWorld />
+  <MainPage />
 </template>
 
-<script setup>
-  //
-</script>
+<script setup></script>

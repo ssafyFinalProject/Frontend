@@ -1,19 +1,45 @@
 /**
  * plugins/vuetify.js
  *
- * Framework documentation: https://vuetifyjs.com`
+ * Framework documentation: https://vuetifyjs.com/
  */
 
 // Styles
-import '@mdi/font/css/materialdesignicons.css'
-import 'vuetify/styles'
+import '@mdi/font/css/materialdesignicons.css';
+import 'vuetify/styles';
 
 // Composables
-import { createVuetify } from 'vuetify'
+import { createVuetify } from 'vuetify';
 
-// https://vuetifyjs.com/en/introduction/why-vuetify/#feature-guides
 export default createVuetify({
   theme: {
-    defaultTheme: 'dark',
+    defaults: {
+      palettes: {
+        primary: {
+          // Fresh, vibrant blue, reminiscent of the sky and ocean
+          base: '#03A9F4',
+          darken1: '#0079D3',
+          darken2: '#005CB2',
+          lighten1: '#53D2FF',
+          lighten2: '#82E9FF',
+        },
+        secondary: {
+          // Energetic orange, evoking warmth and sunshine
+          base: '#FF5722',
+          darken1: '#F44336',
+          darken2: '#EB3822',
+          lighten1: '#FF7961',
+          lighten2: '#FF9D80',
+        },
+        accent: {
+          // Playful yellow, reminiscent of summer and joy
+          base: '#FFEB3B',
+          darken1: '#F8D628',
+          darken2: '#F9C801',
+          lighten1: '#FFF86E',
+          lighten2: '#FFFCB7',
+        },
+      },
+    },
   },
-})
+});
