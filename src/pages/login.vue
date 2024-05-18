@@ -11,8 +11,8 @@ const memberPassword = ref("");
 
 const doLogin = () => {
   if (
-    validateEmail(memberId.value) !== true ||
-    validatePassword(memberPassword.value) !== true
+    !validateEmail(memberId.value) ||
+    !validatePassword(memberPassword.value)
   ) {
     return window.alert("아이디 또는 비밀번호 형식이 올바르지 않습니다");
   }
@@ -40,13 +40,13 @@ const doLogin = () => {
   <v-container class="fill-height">
     <v-responsive class="align-centerfill-height mx-auto" max-width="900">
       <div class="text-center">
-        <h1 class="text-h3 font-weight-bold mt-4">Hello there!</h1>
+        <h1 class="text-h4 font-weight-bold mt-4 mb-2">Hello there!</h1>
       </div>
       <v-sheet class="mx-auto" width="350">
         <v-form fast-fail @submit.prevent>
           <v-text-field
             v-model="memberId"
-            label="아이디"
+            label="이메일"
             :rules="[validateEmail]"
           ></v-text-field>
 
@@ -61,7 +61,7 @@ const doLogin = () => {
         </v-form>
 
         <router-link :to="{ path: '/signup' }" append>
-          <v-btn class="mt-2" block>계정이 없으신가요?</v-btn>
+          <v-btn class="mt-2 mb-2" block>SIGN UP</v-btn>
         </router-link>
         <!-- <router-link>
       <v-btn class="mt-2" block>아이디·비밀번호 찾기</v-btn>
@@ -74,5 +74,8 @@ const doLogin = () => {
 <style scoped>
 a {
   text-decoration: none;
+}
+
+#loginBtn {
 }
 </style>

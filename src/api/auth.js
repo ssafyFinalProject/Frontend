@@ -35,6 +35,7 @@ const signUp = (nickName, memberId, memberPassword) => {
 }
 
 const logout = () => {
+    return true;
     local.get('/auth/logout')
     .then(() => {
         localStorage.removeItem('accessToken');

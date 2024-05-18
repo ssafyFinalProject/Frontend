@@ -86,10 +86,10 @@ const subCardInfos = [
     link: "/mypage",
   },
   {
-    title: "사용 방법",
-    icon: "mdi-note-text-outline",
-    subtitle: "사용 방법을 확인해보세요.",
-    link: "/detail",
+    title: "커뮤니티",
+    icon: "mdi-account-group-outline",
+    subtitle: "다른 사용자들과 소통해보세요.",
+    link: "/board",
   },
 ];
 </script>

@@ -6,7 +6,7 @@ export const useAppStore = defineStore('app', {
     //TODO: login 과정에서 설정
     userInfo : {
       nickname: 'Guest',
-      email: '',
+      email: 'temp@temp.com',
       role: 'GUEST'
     }
   }),
