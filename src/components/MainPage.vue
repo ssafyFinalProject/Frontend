@@ -83,7 +83,7 @@ const subCardInfos = [
     title: "마이페이지",
     icon: "mdi-account",
     subtitle: "내 정보를 확인하고 수정해보세요.",
-    link: "/mypage",
+    link: "/member/mypage",
   },
   {
     title: "커뮤니티",

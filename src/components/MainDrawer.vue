@@ -17,7 +17,7 @@ const doLogout = () => {
 </script>
 
 <template>
-  <v-navigation-drawer expand-on-hover rail>
+  <v-navigation-drawer expand-on-hover rail permanent>
     <v-list>
       <v-list-item
         prepend-avatar="https://randomuser.me/api/portraits/women/85.jpg"
@@ -37,7 +37,7 @@ const doLogout = () => {
         prepend-icon="mdi-account"
         title="마이페이지"
         value="mypage"
-        :to="{ path: '/mypage' }"
+        :to="{ path: '/member/mypage' }"
       ></v-list-item>
 
       <v-divider class="mt-2 mb-2"></v-divider>
