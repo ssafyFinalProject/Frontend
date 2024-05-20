@@ -26,6 +26,8 @@ const getContent = (item) => {
       <view-board-content-input
         @send-content="getContent"
       ></view-board-content-input>
+      
+
     </v-responsive>
   </v-container>
 </template>
