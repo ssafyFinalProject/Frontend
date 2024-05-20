@@ -16,7 +16,6 @@ const route = useRoute();
 
 const isValid = computed(() => {
   const path = route.path;
-  console.log(!(path === "/signup" || path === "/login"));
   return !(path === "/signup" || path === "/login");
 });
 </script>

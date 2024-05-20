@@ -2,59 +2,34 @@ import { localAxios } from "@/utils/http-commons";
 
 const local = localAxios();
 
-const makeBoard = (board) => {
-    local.post('/board', board)
-    .then((response) => {
-        // const board = response.data;
-        // return board;
-        return response.data === 200;
-    })
-    .catch(() => {
-        return false;
-    })
+const makeBoard = (makeBoardRequest, success, fail) => {
+    local.post('/board', makeBoardRequest)
+        .then(success)
+        .catch(fail)
 }
 
-const getBoardList = () => {
-    local.get('/board')
-        .then((response) => {
-            const pageList = response.data;
-            return pageList;
-        })
-        .catch((error) => {
-            console.log(error);
-        })
+const getBoardList = (pageable, success, fail) => {
+    local.get(`/board?page=${pageable.page}&size=${pageable.size}&sort=${pageable.sort}`)
+        .then(success)
+        .catch(fail)
 }
 
-const searchBoardById = (boardId) => {
+const searchBoardById = (boardId, success, fail) => {
     local.get(`/board/${boardId}`)
-        .then((response) => {
-            const board = response.data;
-            return board;
-        })
-        .catch((error) => {
-            console.log(error);
-        })
+        .then(success)
+        .catch(fail)
 }
 
-const updateBoard = (boardId, title, content) => {
-    local.put(`/board`, {'boardId' : boardId, 'title' : title, 'content' : content})
-        .then((response) => {
-            const board = response.data;
-            return board;
-        })
-        .catch((error) => {
-            console.log(error);
-        })
+const updateBoard = (updateBoardRequest, success, fail) => {
+    local.put(`/board`, updateBoardRequest)
+        .then(success)
+        .catch(fail)
 }
 
-const deleteBoard = (boardId) => {
+const deleteBoard = (boardId, success, fail) => {
     local.delete(`/board/${boardId}`)
-        .then(() => {
-            return true;
-        })
-        .catch(() => {
-            return false;
-        })
+        .then(success)
+        .catch(fail)
 }
 
 

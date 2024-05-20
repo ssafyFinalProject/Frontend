@@ -2,57 +2,35 @@ import { localAxios } from "@/utils/http-commons";
 
 const local = localAxios();
 
-const checkMemberDuplicate = (nickName) => {
-    local.post('/member/duplicate', {'name' : nickName}, {headers : {'Authorization':null}})
-    .then((response) => {
-        return response.data;
-    })
-    .catch(() => {
-        window.alert('알 수 없는 오류가 발생했습니다.');
-    })
+const checkMemberDuplicate = (nickName, success, fail) => {
+    return local.get(`/member/duplicate?name=${nickName}`, {headers : {'Authorization':null}})
+    .then(success)
+    .catch(fail)
 }
 
-const getMemberByNickName = (nickName) => {
-    local.get('/member', {'nickname' : nickName})
-    .then((response) => {
-        return response.data;
-    })
-    .catch(() => {
-        window.alert('알 수 없는 오류가 발생했습니다.');
-    })
+const getMemberByNickName = (nickName, success, fail) => {
+    local.get('/member', {"nickname" : nickName})
+    .then(success)
+    .fail(fail)
 }
 
-const getMemberByJWT = () => {
+const getMemberByJWT = (success, fail) => {
     local.get('/member/me')
-    .then((response) => {
-        return response.data;
-    })
-    .catch(() => {
-        window.alert('알 수 없는 오류가 발생했습니다.');
-    })
-
+    .then(success)
+    .catch(fail)
 }
 
-const updateMember = (curNickname, changeNickname) => {
-    local.put('/member', {curNickname, changeNickname})
-    .then((response) => {
-        return response.data;
-    })
-    .catch(() => {
-        window.alert('알 수 없는 오류가 발생했습니다.');
-    })
-
+const updateMember = (updateMemberRequest, success, fail) => {
+    local.put('/member', updateMemberRequest)
+    .then(success)
+    .catch(fail)
 }
 
-const deleteMember = () => {
+const deleteMember = (success, fail) => {
     const uuid = localStorage.getItem('uuid');
-    local.delete('/member', {'id' : uuid})
-    .then((response) => {
-        return response.data;
-    })
-    .catch(() => {
-        window.alert('알 수 없는 오류가 발생했습니다.');
-    })
+    local.delete('/member', {"id" : uuid})
+    .then(success)
+    .catch(fail)
 }
 
 export { checkMemberDuplicate, getMemberByNickName, getMemberByJWT, updateMember, deleteMember,}

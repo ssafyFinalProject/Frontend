@@ -1,48 +1,81 @@
 <script setup>
 import { ref } from "vue";
 import { useRouter } from "vue-router/auto";
+import { useAppStore } from "@/stores/app";
+
 import {
   validateNickname,
   validateEmail,
   validatePassword,
 } from "@/utils/validations";
 
-import { checkMemberDuplicate } from "@/api/member";
+import { checkMemberDuplicate, getMemberByJWT } from "@/api/member";
 import { signUp } from "@/api/auth";
 
 const router = useRouter();
 
-const memberNickname = ref("");
-const memberId = ref("");
-const memberPassword = ref("");
+const store = useAppStore();
 
-const doSignUP = () => {
+const nickname = ref("");
+const email = ref("");
+const password = ref("");
+
+const doSignUP = async () => {
   if (
-    !validateNickname(memberNickname.value) ||
-    !validateEmail(memberId.value) ||
-    !validatePassword(memberPassword.value)
+    !validateNickname(nickname.value) ||
+    !validateEmail(email.value) ||
+    !validatePassword(password.value)
   ) {
     return window.alert(
       "닉네임, 이메일 또는 비밀번호 형식이 올바르지 않습니다"
     );
   }
 
-  if (!checkMemberDuplicate(memberNickname.value)) {
-    return window.alert("이미 존재하는 닉네임입니다.");
+  const canSignUp = await checkMemberDuplicate(
+    nickname.value,
+    ({ data }) => {
+      return data.isPresent !== true;
+    },
+    (error) => {
+      window.alert(error);
+      return false;
+    }
+  );
+
+  if (!canSignUp) {
+    window.alert("이미 존재하는 닉네임입니다");
+    return;
   }
 
-  signUp(memberNickname.value, memberId.value, memberPassword.value)
-    .then((response) => {
-      if (response.data === true) {
-        window.alert("회원가입에 성공했습니다.");
-        router.push({ path: "/login" });
-      } else {
-        window.alert("회원가입에 실패했습니다.");
-      }
-    })
-    .catch((error) => {
+  signUp(
+    {
+      nickname: nickname.value,
+      email: email.value,
+      password: password.value,
+    },
+    ({ data }) => {
+      const signStatus = data.signStatus;
+      store.setSignStatus(signStatus);
+
+      const token = data.tokenDto;
+      localStorage.setItem("accessToken", token);
+      localStorage.setItem("refreshToken", token);
+
+      getMemberByJWT(
+        ({ data }) => {
+          store.setUserInfo(data);
+          window.alert("회원가입이 완료되었습니다");
+          router.push({ path: "/" });
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    },
+    (error) => {
       window.alert(error);
-    });
+    }
+  );
 };
 </script>
 
@@ -55,19 +88,19 @@ const doSignUP = () => {
       <v-sheet class="mx-auto" width="350">
         <v-form fast-fail @submit.prevent>
           <v-text-field
-            v-model="memberNickname"
+            v-model="nickname"
             label="닉네임"
             :rules="[validateNickname]"
           ></v-text-field>
 
           <v-text-field
-            v-model="memberId"
+            v-model="email"
             label="이메일"
             :rules="[validateEmail]"
           ></v-text-field>
 
           <v-text-field
-            v-model="memberPassword"
+            v-model="password"
             label="비밀번호"
             type="password"
             :rules="[validatePassword]"

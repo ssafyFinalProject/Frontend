@@ -20,7 +20,6 @@ const moveEditPage = () => {
   router.push({ path: "/board/edit" });
 };
 
-// content: "쓸 내용이 없긴해요.",
 const dummy = ref([
   {
     boardId: 1,
@@ -63,34 +62,6 @@ const dummy = ref([
     view: 0,
     memberId: 1,
     nickname: "user1",
-  },
-  {
-    boardId: 2,
-    title: "Board 2",
-    view: 0,
-    memberId: 2,
-    nickname: "user2",
-  },
-  {
-    boardId: 3,
-    title: "Board 3",
-    view: 0,
-    memberId: 3,
-    nickname: "user3",
-  },
-  {
-    boardId: 4,
-    title: "Board 4",
-    view: 0,
-    memberId: 4,
-    nickname: "user4",
-  },
-  {
-    boardId: 5,
-    title: "Board 5",
-    view: 0,
-    memberId: 5,
-    nickname: "user5",
   },
 ]);
 </script>

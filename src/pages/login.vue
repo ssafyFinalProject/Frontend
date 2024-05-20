@@ -4,35 +4,48 @@ import { useRouter } from "vue-router";
 import { validateEmail, validatePassword } from "@/utils/validations";
 import { login } from "@/api/auth";
 import { getMemberByJWT } from "@/api/member";
+import { useAppStore } from "@/stores/app";
 
 const router = useRouter();
-const memberId = ref("");
-const memberPassword = ref("");
+const store = useAppStore();
 
-const doLogin = () => {
-  if (
-    !validateEmail(memberId.value) ||
-    !validatePassword(memberPassword.value)
-  ) {
+const email = ref("");
+const password = ref("");
+
+const doLogin = async () => {
+  if (!validateEmail(email.value) || !validatePassword(password.value)) {
     return window.alert("아이디 또는 비밀번호 형식이 올바르지 않습니다");
   }
 
-  // localStorage.setItem("accessToken", "true");
-  // router.push({ path: "./" });
-  // return;
-  login(memberId.value, memberPassword.value)
-    .then((response) => {
-      if (response.data === true) {
-        const { member } = getMemberByJWT();
+  login(
+    {
+      email: email.value,
+      password: password.value,
+    },
+    ({ data }) => {
+      const signStatus = data.signStatus;
+      store.setSignStatus(signStatus);
 
-        router.push({ path: "/" });
-      } else {
-        window.alert("로그인에 실패했습니다.");
-      }
-    })
-    .catch((error) => {
-      window.alert(error);
-    });
+      const token = data.tokenDto;
+      localStorage.setItem("accessToken", token.accessToken);
+      localStorage.setItem("refreshToken", token.refreshToken);
+
+      getMemberByJWT(
+        ({ data }) => {
+          store.setUserInfo(data);
+          console.log(data);
+          router.push({ path: "/" });
+        },
+        () => {
+          window.alert("로그인에 실패했습니다");
+        }
+      );
+    },
+    (error) => {
+      console.log(error);
+      window.alert("로그인에 실패했습니다");
+    }
+  );
 };
 </script>
 
@@ -45,13 +58,13 @@ const doLogin = () => {
       <v-sheet class="mx-auto" width="350">
         <v-form fast-fail @submit.prevent>
           <v-text-field
-            v-model="memberId"
+            v-model="email"
             label="이메일"
             :rules="[validateEmail]"
           ></v-text-field>
 
           <v-text-field
-            v-model="memberPassword"
+            v-model="password"
             label="비밀번호"
             type="password"
             :rules="[validatePassword]"

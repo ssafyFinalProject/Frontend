@@ -64,7 +64,7 @@
 import { useAppStore } from "@/stores/app";
 
 const store = useAppStore();
-const userInfo = store.userInfo;
+const userInfo = store.getUserInfo;
 
 const subCardInfos = [
   {

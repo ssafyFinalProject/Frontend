@@ -1,18 +1,28 @@
 <script setup>
-import { useAppStore } from "@/stores/app";
+import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router/auto";
+import { useAppStore } from "@/stores/app";
 import { logout } from "@/api/auth";
 
-const router = useRouter();
+const userInfo = ref({});
 const store = useAppStore();
-const userInfo = store.userInfo;
+
+onMounted(() => {
+  userInfo.value = store.getUserInfo;
+});
+const router = useRouter();
 
 const doLogout = () => {
-  if (logout()) {
-    localStorage.removeItem("accessToken");
-    localStorage.removeItem("refreshToken");
-    router.replace({ path: "/login" });
-  }
+  logout(
+    () => {
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("refreshToken");
+      router.replace({ path: "/login" });
+    },
+    (error) => {
+      console.log(error);
+    }
+  );
 };
 </script>
 

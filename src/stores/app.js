@@ -3,28 +3,33 @@ import { defineStore } from 'pinia'
 
 export const useAppStore = defineStore('app', {
   state: () => ({
-    //TODO: login 과정에서 설정
-    userInfo : {
-      memberId: 1,
-      nickname: 'Guest',
-      email: 'temp@temp.com',
-      role: 'GUEST'
-    }
+    userInfo : null,
+    signStatus : ""
   }),
 
   getters: {
-    // getUserInfo() {
-    //   return this.userInfo ? this.userInfo : {
-    //     nickname: 'Guest',
-    //     email: 'test@test.com',
-    //     role: 'GUEST'
-    //   };
-    // }
+    getUserInfo() {
+      return this.userInfo;
+    }
   },
 
   actions: {
-    // setUserInfo(userInfo) {
-    //   this.userInfo = userInfo;
-    // }
+    setUserInfo(userInfo) {
+      this.userInfo = userInfo;
+    },
+
+    setSignStatus(signStatus) {
+      this.signStatus = signStatus;
+    }
+  },
+
+  persist: {
+    enabled: true,
+    strategies: [
+      {
+        key:'app',
+        storage: localStorage,
+      },
+    ],
   }
 })
