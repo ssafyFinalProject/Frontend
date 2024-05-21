@@ -119,6 +119,10 @@ const changeCenter = (lat, lng) => {
 const doSearch = (value) => {
   const { select, searchContent } = value;
 
+  if (searchContent.length == 0) {
+    return;
+  }
+
   if (select == 0) {
     findPlaceByDetail(
       searchContent,

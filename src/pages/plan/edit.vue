@@ -15,8 +15,7 @@ const getContent = (item) => {
       router.push({ path: "/plan" });
     },
     (error) => {
-      window.alert("계획 작성에 실패했습니다.");
-      console.log(error);
+      window.alert(error);
     }
   );
 };

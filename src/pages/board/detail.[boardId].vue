@@ -9,9 +9,7 @@ onMounted(() => {
   searchBoardById(
     boardId.value,
     ({ data }) => {
-      console.log(data);
       board.value = data.board;
-      console.log(board.value);
       comments.value = data.commentList;
     },
     (error) => {

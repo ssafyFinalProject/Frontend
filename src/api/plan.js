@@ -3,7 +3,13 @@ import { localAxios } from "@/utils/http-commons";
 const local = localAxios();
 
 const getPlanList = (success, fail) => {
-    return local.get(`/plan/me`)
+    local.get(`/plan/me`)
+        .then(success)
+        .catch(fail)
+}
+
+const getPlan = (planId, success, fail) => {
+    local.get(`/plan?id=${planId}`)
         .then(success)
         .catch(fail)
 }
@@ -26,4 +32,4 @@ const deletePlan = (planId, success, fail) => {
         .catch(fail)
 }
 
-export { getPlanList, registPlan, updatePlan, deletePlan}
+export { getPlanList, getPlan, registPlan, updatePlan, deletePlan}

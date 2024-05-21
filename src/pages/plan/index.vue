@@ -21,15 +21,6 @@ const router = useRouter();
 const moveEditPage = () => {
   router.push({ path: "/plan/edit" });
 };
-
-// const plans = ref([
-//   {
-//     no: 1,
-//     title: "View",
-//     subtitle: "View",
-//     desc: "View",
-//   },
-// ]);
 </script>
 
 <template>
@@ -49,7 +40,7 @@ const moveEditPage = () => {
         </v-col>
       </v-row>
       <v-row>
-        <ViewMainPlanCard
+        <view-main-plan-card
           v-for="plan in plans"
           :key="plan.title"
           :plan="plan"

@@ -5,10 +5,11 @@ const props = defineProps({
   plan: Object,
 });
 
+console.log(props.plan);
 // const show = ref(false);
 
 const showPlan = () => {
-  router.push({ path: `/plan/${props.plan.no}` });
+  router.push({ path: `/plan/${props.plan.planId}` });
 };
 </script>
 
@@ -22,8 +23,8 @@ const showPlan = () => {
         height="200px"
         cover
       >
-        <v-card-title class="pb-0">{{ plan.title }}</v-card-title>
-        <v-card-subtitle class="mb-3"> {{ plan.subtitle }} </v-card-subtitle>
+        <v-card-title class="pb-0">{{ plan.name }}</v-card-title>
+        <v-card-subtitle class="mb-3"> {{ plan.content }}</v-card-subtitle>
       </v-img>
 
       <v-card-actions>

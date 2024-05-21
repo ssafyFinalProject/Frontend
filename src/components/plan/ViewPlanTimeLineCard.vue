@@ -34,5 +34,11 @@
   </v-card>
 </template>
 
-<script setup></script>
+<script setup>
+import { ref } from "vue";
+
+const props = defineProps({
+  item: Object,
+});
+</script>
 <style scoped></style>
