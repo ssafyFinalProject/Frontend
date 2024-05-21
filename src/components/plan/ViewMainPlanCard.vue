@@ -8,6 +8,10 @@ const props = defineProps({
 const showPlan = () => {
   router.push({ path: `/plan/${props.plan.planId}` });
 };
+
+const editPlan = () => {
+  router.push({ path: `/plan/edit/detail/${props.plan.planId}` });
+};
 </script>
 
 <template>
@@ -26,7 +30,13 @@ const showPlan = () => {
 
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn color="medium-emphasis" icon="mdi-pencil" size="small"> </v-btn>
+        <v-btn
+          @click="editPlan"
+          color="medium-emphasis"
+          icon="mdi-pencil"
+          size="small"
+        >
+        </v-btn>
         <v-btn
           @click="showPlan"
           color="medium-emphasis"

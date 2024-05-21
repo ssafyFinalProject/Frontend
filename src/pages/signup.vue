@@ -37,6 +37,7 @@ const doSignUP = async () => {
       return data.isPresent !== true;
     },
     (error) => {
+      console.log(error);
       window.alert(error);
       return false;
     }
@@ -64,12 +65,14 @@ const doSignUP = async () => {
       localStorage.setItem("accessToken", token);
       localStorage.setItem("refreshToken", token);
 
-      router.push({ path: "/" });
+      // router.push({ path: "/" });
     },
     (error) => {
       window.alert(error);
+      router.push({ path: "/signup" });
     }
   );
+  router.push({ path: "/" });
 };
 </script>
 

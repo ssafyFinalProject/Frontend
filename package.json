@@ -1,5 +1,5 @@
 {
-  "name": "vuetify-project",
+  "name": "ssafy-final-project",
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
@@ -17,7 +17,7 @@
     "roboto-fontface": "*",
     "vue": "^3.4.0",
     "vue-kakao-maps": "^0.2.11",
-    "vuetify": "^3.5.0"
+    "vuetify": "^3.6.0"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.0.4",

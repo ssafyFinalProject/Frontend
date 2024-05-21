@@ -6,9 +6,9 @@ const router = useRouter();
 const getContent = (item) => {
   registPlan(
     {
-      name: item.title,
+      name: item.name,
       content: item.content,
-      planDay: "2024-01-01",
+      planDay: new Date(item.planDay).toISOString().split("T")[0],
     },
     () => {
       window.alert("계획이 작성되었습니다.");
@@ -25,9 +25,9 @@ const getContent = (item) => {
   <v-container class="fill-height">
     <v-responsive class="align-centerfill-height mx-auto" max-width="900">
       <h1 class="text-h5 font-weight-bold ms-3">계획하기</h1>
-      <view-board-content-input
+      <view-plan-content-input
         @send-content="getContent"
-      ></view-board-content-input>
+      ></view-plan-content-input>
     </v-responsive>
   </v-container>
 </template>

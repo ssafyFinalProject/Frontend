@@ -22,17 +22,17 @@
         v-if="places.length > 0"
         :searchs="places"
       />
-      <div v-if="places.length == 0 && isSearched" class="text-center">
+      <!-- <div v-if="places.length == 0 && isSearched" class="text-center">
         <h1 class="text-h4 font-weight-bold mt-4 mb-2">
           검색 결과가 없습니다.
         </h1>
-      </div>
+      </div> -->
     </v-responsive>
   </v-container>
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import {
   findPlaceByDetail,
   findPlaceListByCategory,
@@ -46,10 +46,10 @@ import {
 const doAddFavorite = (search) => {
   registMyPlace(
     search.placeId,
-    ({ data }) => {
+    () => {
       window.alert("즐겨찾기에 추가되었습니다.");
     },
-    (error) => {
+    () => {
       window.alert("즐겨찾기 추가에 실패했습니다.");
     }
   );
@@ -66,36 +66,19 @@ const doGoToMap = (search) => {
 const height = ref(300);
 const center = ref({ lat: 37.5013, lng: 127.04 });
 const isSearched = ref(false);
-const places = ref([
-  {
-    placeId: "1wefwefwefwefe",
-    name: "Place One",
-    category: "RESTAURANT",
-    roadAddress: "123 Main St",
-    address: "123 Main St, City, Country",
-    latitude: 37.7749,
-    longitude: 128.4194,
-  },
-  {
-    placeId: "2wefwefwefwefe",
-    name: "Place One",
-    category: "RESTAURANT",
-    roadAddress: "123 Main St",
-    address: "123 Main St, City, Country",
-    latitude: 36.7749,
-    longitude: 128.4194,
-  },
-]);
+const places = ref([]);
 
-const markers = ref(
-  places.value.map((place) => {
+// 검색 정보가 바뀔 때마다 마커를 변경하는 watch
+const markers = ref([]);
+watch(places, (newPlaces) => {
+  markers.value = newPlaces.map((place) => {
     return {
       content: place.name,
       lat: place.latitude,
       lng: place.longitude,
     };
-  })
-);
+  });
+});
 
 // 지도의 Height를 바꾸는 함수
 const changeHeight = (value) => {

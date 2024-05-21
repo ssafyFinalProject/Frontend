@@ -18,10 +18,10 @@ console.log(props.boardInfo);
   >
     <!-- width="400" -->
     <template v-slot:title>
-      <span class="font-weight-black">{{ boardInfo.title }}</span>
+      <span class="text-h5 font-weight-black">{{ boardInfo.title }}</span>
     </template>
 
-    <v-card-text class="bg-surface-light pt-4">
+    <v-card-text class="text-body-1 bg-surface-light pt-4">
       {{ boardInfo.content }}
     </v-card-text>
   </v-card>

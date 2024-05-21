@@ -1,6 +1,6 @@
 <script setup>
-defineProps(["markerInfo"]);
 import { Marker, InfoWindow } from "vue-kakao-maps";
+defineProps(["markerInfo"]);
 </script>
 
 <template>
