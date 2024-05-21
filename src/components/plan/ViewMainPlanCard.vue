@@ -5,9 +5,6 @@ const props = defineProps({
   plan: Object,
 });
 
-console.log(props.plan);
-// const show = ref(false);
-
 const showPlan = () => {
   router.push({ path: `/plan/${props.plan.planId}` });
 };
