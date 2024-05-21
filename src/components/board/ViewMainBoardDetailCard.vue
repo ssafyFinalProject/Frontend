@@ -1,17 +1,8 @@
 <script setup>
-defineProps({
-  boardInfo: Object,
-});
+const props = defineProps(["boardInfo"]);
 
-const dummy = {
-  boardId: 1,
-  title: "관통 프로젝트 ㅈㄴ 힘들면 개추 ㅋㅋ",
-  content:
-    "아 이거 끝이 안보이는데 언제까지 해야되냐 ㅋㅋㅋㅋㅋㅋ 시간이 너무 없네 ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ시간이 너무 없네 ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ시간이 너무 없네 ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ시간이 너무 없네 ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
-  view: 1234,
-  memberId: 1,
-  nickname: "user1",
-};
+console.log(props.boardInfo);
+
 // TODO : 부제목에 시간 추가?
 </script>
 
@@ -23,15 +14,15 @@ const dummy = {
     rel="noopener noreferrer"
     rounded="lg"
     variant="elevated"
-    :subtitle="`${dummy.nickname} · ${dummy.view} views · ${dummy.createdAt}`"
+    :subtitle="`${boardInfo.member.nickname} · ${boardInfo.view} views · ${boardInfo.date}`"
   >
     <!-- width="400" -->
     <template v-slot:title>
-      <span class="font-weight-black">{{ dummy.title }}</span>
+      <span class="font-weight-black">{{ boardInfo.title }}</span>
     </template>
 
     <v-card-text class="bg-surface-light pt-4">
-      {{ dummy.content }}
+      {{ boardInfo.content }}
     </v-card-text>
   </v-card>
 </template>

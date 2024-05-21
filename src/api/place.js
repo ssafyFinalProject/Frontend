@@ -20,7 +20,7 @@ const findPlaceListByRoadAddress = (roadAddress, success, fail) => {
         .catch(fail)
 }
 
-const findPlaceByDetail = (args = {}, success, fail) => {
+const findPlaceByDetail = (success, fail, args = {}) => {
     const {
         name = '',
         category = '',
@@ -38,4 +38,24 @@ const findPlaceByDetail = (args = {}, success, fail) => {
         .catch(fail)
 }
 
-export {findPlaceListByCategory, findPlaceListByName, findPlaceListByRoadAddress, findPlaceByDetail}
+const getMyPlaceList = (success, fail) => {
+    return local.get(`/place/me`)
+        .then(success)
+        .catch(fail)
+} 
+
+const registMyPlace = (placeId, success, fail) => {
+  console.log("placeId", placeId);
+    return local.post(`/place/me`, {placeId: placeId})
+        .then(success)
+        .catch(fail)
+}
+
+const deleteMyPlace = (placeId, success, fail) => {
+    return local.delete(`/place/me`, {placeId: placeId})
+        .then(success)
+        .catch(fail)
+}
+
+
+export {findPlaceListByCategory, findPlaceListByName, findPlaceListByRoadAddress, findPlaceByDetail, getMyPlaceList, registMyPlace, deleteMyPlace,}

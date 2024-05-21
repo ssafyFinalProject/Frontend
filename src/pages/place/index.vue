@@ -17,6 +17,7 @@
       <v-divider class="mt-3 mb-3"></v-divider>
 
       <view-search-result-card
+        @add-favorite="doAddFavorite"
         @go-to-map="doGoToMap"
         v-if="places.length > 0"
         :searchs="places"
@@ -37,7 +38,22 @@ import {
   findPlaceListByCategory,
   findPlaceListByName,
   findPlaceListByRoadAddress,
+  registMyPlace,
+  // getMyPlaceList,
+  // deleteMyPlace,
 } from "@/api/place";
+
+const doAddFavorite = (search) => {
+  registMyPlace(
+    search.placeId,
+    ({ data }) => {
+      window.alert("즐겨찾기에 추가되었습니다.");
+    },
+    (error) => {
+      window.alert("즐겨찾기 추가에 실패했습니다.");
+    }
+  );
+};
 
 const doGoToMap = (search) => {
   changeCenter(search.latitude, search.longitude);
@@ -52,7 +68,7 @@ const center = ref({ lat: 37.5013, lng: 127.04 });
 const isSearched = ref(false);
 const places = ref([
   {
-    id: 1,
+    placeId: "1wefwefwefwefe",
     name: "Place One",
     category: "RESTAURANT",
     roadAddress: "123 Main St",
@@ -61,31 +77,13 @@ const places = ref([
     longitude: 128.4194,
   },
   {
-    id: 2,
-    name: "Place Two",
-    category: "SHOP",
-    roadAddress: "456 Market St",
-    address: "456 Market St, City, Country",
-    latitude: 37.0522,
-    longitude: 128.2437,
-  },
-  {
-    id: 3,
-    name: "Place Three",
-    category: "CAFE",
-    roadAddress: "789 Broadway",
-    address: "789 Broadway, City, Country",
-    latitude: 37.7128,
-    longitude: 127.006,
-  },
-  {
-    id: 4,
-    name: "Place Four",
-    category: "PARK",
-    roadAddress: "101 Park Ave",
-    address: "101 Park Ave, City, Country",
-    latitude: 37.5074,
-    longitude: 127.1278,
+    placeId: "2wefwefwefwefe",
+    name: "Place One",
+    category: "RESTAURANT",
+    roadAddress: "123 Main St",
+    address: "123 Main St, City, Country",
+    latitude: 36.7749,
+    longitude: 128.4194,
   },
 ]);
 
@@ -112,6 +110,7 @@ const changeHeight = (value) => {
 
 // 지도의 중심을 바꾸는 함수
 const changeCenter = (lat, lng) => {
+  center.value = { lat: 0, lng: 0 };
   center.value.lat = lat;
   center.value.lng = lng;
 };

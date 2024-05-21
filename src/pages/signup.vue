@@ -54,23 +54,17 @@ const doSignUP = async () => {
       password: password.value,
     },
     ({ data }) => {
+      localStorage.removeItem("app");
+
       const signStatus = data.signStatus;
       store.setSignStatus(signStatus);
 
       const token = data.tokenDto;
+      console.log(token);
       localStorage.setItem("accessToken", token);
       localStorage.setItem("refreshToken", token);
 
-      getMemberByJWT(
-        ({ data }) => {
-          store.setUserInfo(data);
-          window.alert("회원가입이 완료되었습니다");
-          router.push({ path: "/" });
-        },
-        (error) => {
-          console.log(error);
-        }
-      );
+      router.push({ path: "/" });
     },
     (error) => {
       window.alert(error);

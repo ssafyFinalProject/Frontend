@@ -15,6 +15,7 @@ const router = useRouter();
 const doLogout = () => {
   logout(
     () => {
+      localStorage.removeItem("app");
       localStorage.removeItem("accessToken");
       localStorage.removeItem("refreshToken");
       router.replace({ path: "/login" });
@@ -73,7 +74,7 @@ const doLogout = () => {
         prepend-icon="mdi-account-group"
         title="커뮤니티"
         value="community"
-        :to="{ path: '/board' }"
+        :to="{ path: '/board/1' }"
       ></v-list-item>
     </v-list>
     <v-divider class="mb-2"></v-divider>

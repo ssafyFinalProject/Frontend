@@ -1,99 +1,94 @@
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, onUpdated } from "vue";
 import { useAppStore } from "@/stores/app";
 import { useRoute } from "vue-router/auto";
 import { searchBoardById } from "@/api/board";
 import { writeComment, deleteComment } from "@/api/comment";
 
-const store = useAppStore();
-const userInfo = store.userInfo;
-
-const props = defineProps({
-  boardInfo: Object,
+onMounted(() => {
+  searchBoardById(
+    boardId.value,
+    ({ data }) => {
+      console.log(data);
+      board.value = data.board;
+      console.log(board.value);
+      comments.value = data.commentList;
+    },
+    (error) => {
+      window.alert(error);
+    }
+  );
 });
 
-// const info = ref({});
-// const board = ref({});
-// const commentList = ref([]);
-
-// onMounted(() => {
-//   info.value = searchBoardById(props.boardInfo.boardId);
-//   board.value = info.value.board;
-//   commentList.value = info.value.commentList;
-// });
-
-const commentList = ref([
-  {
-    commentId: 1,
-    boardId: 1,
-    content: "댓글 내용입니다.",
-    member: {
-      memberId: 1,
-      nickname: "작성자1",
-    },
-  },
-  {
-    commentId: 2,
-    boardId: 1,
-    content: "댓글 내용입니다.",
-    member: {
-      memberId: 2,
-      nickname: "작성자2",
-    },
-  },
-  {
-    commentId: 3,
-    boardId: 1,
-    content: "댓글 내용입니다.",
-    member: {
-      memberId: 3,
-      nickname: "작성자3",
-    },
-  },
-]);
-
+const store = useAppStore();
 const route = useRoute();
+
+const userInfo = store.userInfo;
 const boardId = ref(route.params.boardId);
+console.log(boardId.value);
+
+const board = ref({ member: {} });
+const comments = ref([]);
+
+onUpdated(() => {
+  searchBoardById(
+    boardId.value,
+    ({ data }) => {
+      board.value = data.board;
+      comments.value = data.commentList;
+    },
+    (error) => {
+      window.alert(error);
+    }
+  );
+});
 
 const doEditComment = (content) => {
-  if (writeComment(boardId.value, content)) {
-    window.alert("댓글이 등록되었습니다.");
-  } else {
-    window.alert("댓글 등록에 실패했습니다.");
-  }
+  console.log(boardId.value, content);
+  writeComment(
+    { boardId: boardId.value, content },
+    ({ data }) => {
+      comments.value.push(data);
+    },
+    (error) => {
+      window.alert(error);
+    }
+  );
 };
 
 const doDeleteComment = (id) => {
-  if (deleteComment(id)) {
-    // TODO: 클라이언트단 로직 필요
-    console.log("댓글이 삭제되었습니다.");
-  } else {
-    console.log("댓글이 삭제되지 않았습니다.");
-  }
+  deleteComment(
+    id,
+    () => {
+      comments.value = comments.value.filter(
+        (comment) => comment.commentId !== id
+      );
+    },
+    (error) => {
+      window.alert(error);
+    }
+  );
 };
 </script>
 
 <template>
   <v-container class="fill-height">
     <v-responsive class="align-centerfill-height mx-auto" max-width="900">
-      <view-main-board-detail-card :boardInfo="boardInfo" />
+      <view-main-board-detail-card :boardInfo="board" />
+
       <v-divider class="mt-5 mb-5"></v-divider>
+
       <view-comment-edit-card @edit-comment="doEditComment" />
-      <!-- <view-main-comment-card
-        v-for="item in commentList"
-        :key="item.title"
-        :commentInfo="item"
-      ></view-main-comment-card> -->
+
       <v-list lines="two">
         <!-- <v-list-subheader inset
-          >댓글 · {{ commentList.length }}개</v-list-subheader
+          >댓글 · {{ comments.length }}개</v-list-subheader
         > -->
-
         <v-list-item
-          v-for="comment in commentList"
+          v-for="comment in comments"
           :key="comment.commentId"
-          :subtitle="comment.member.nickname"
           :title="comment.content"
+          :subtitle="`${comment.member.nickname} · ${comment.date}`"
         >
           <!-- prepend-avatar="https://randomuser.me/api/portraits" -->
           <!-- <template v-slot:prepend>

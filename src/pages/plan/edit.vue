@@ -1,21 +1,24 @@
 <script setup>
 import { useRouter } from "vue-router/auto";
-
+import { registPlan } from "@/api/plan";
 const router = useRouter();
 
 const getContent = (item) => {
-  // makeBoard(
-  //   {
-  //     title: item.title,
-  //     content: item.content,
-  //   },
-  //   () => {
-  //     router.push({ path: "/board" });
-  //   },
-  //   (error) => {
-  //     console.log(error);
-  //   }
-  // );
+  registPlan(
+    {
+      name: item.title,
+      content: item.content,
+      planDay: "2024-01-01",
+    },
+    () => {
+      window.alert("계획이 작성되었습니다.");
+      router.push({ path: "/plan" });
+    },
+    (error) => {
+      window.alert("계획 작성에 실패했습니다.");
+      console.log(error);
+    }
+  );
 };
 </script>
 
@@ -26,8 +29,6 @@ const getContent = (item) => {
       <view-board-content-input
         @send-content="getContent"
       ></view-board-content-input>
-      
-
     </v-responsive>
   </v-container>
 </template>

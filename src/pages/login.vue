@@ -23,6 +23,8 @@ const doLogin = async () => {
       password: password.value,
     },
     ({ data }) => {
+      localStorage.removeItem("app");
+
       const signStatus = data.signStatus;
       store.setSignStatus(signStatus);
 
@@ -30,20 +32,11 @@ const doLogin = async () => {
       localStorage.setItem("accessToken", token.accessToken);
       localStorage.setItem("refreshToken", token.refreshToken);
 
-      getMemberByJWT(
-        ({ data }) => {
-          store.setUserInfo(data);
-          console.log(data);
-          router.push({ path: "/" });
-        },
-        () => {
-          window.alert("로그인에 실패했습니다");
-        }
-      );
+      router.push({ path: "/" });
     },
     (error) => {
-      console.log(error);
       window.alert("로그인에 실패했습니다");
+      console.log(error);
     }
   );
 };

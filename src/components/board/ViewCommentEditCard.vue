@@ -3,7 +3,6 @@ import { ref } from "vue";
 
 const emit = defineEmits(["editComment"]);
 const doEditComment = () => {
-  console.log(comment.value);
   emit("editComment", comment.value);
   comment.value = "";
 };

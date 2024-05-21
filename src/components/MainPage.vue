@@ -61,10 +61,27 @@
 </template>
 
 <script setup>
+import { ref, onMounted } from "vue";
 import { useAppStore } from "@/stores/app";
+import { getMemberByJWT } from "@/api/member";
 
 const store = useAppStore();
-const userInfo = store.getUserInfo;
+const userInfo = ref({});
+onMounted(() => {
+  getMemberByJWT(
+    ({ data }) => {
+      console.log(data);
+      store.setUserInfo(data);
+      userInfo.value = data;
+    },
+    (error) => {
+      window.alert(error);
+    }
+  );
+});
+
+console.log(userInfo.value);
+console.log(userInfo.value);
 
 const subCardInfos = [
   {

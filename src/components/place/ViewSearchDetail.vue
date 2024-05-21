@@ -13,7 +13,14 @@
 
     <v-card-actions>
       <v-spacer></v-spacer>
-      <v-btn color="medium-emphasis" icon="mdi-heart" size="small"></v-btn>
+
+      <v-btn
+        @click="doAddFavorite"
+        color="medium-emphasis"
+        icon="mdi-heart"
+        size="small"
+      ></v-btn>
+
       <v-btn
         @click="doGoToMap"
         color="medium-emphasis"
@@ -28,10 +35,14 @@
 import { ref } from "vue";
 
 const props = defineProps(["search"]);
-const emit = defineEmits(["goToMap"]);
+const emit = defineEmits(["goToMap", "addFavorite"]);
 
 const doGoToMap = () => {
   emit("goToMap", props.search);
+};
+
+const doAddFavorite = () => {
+  emit("addFavorite", props.search);
 };
 </script>
 

@@ -11,9 +11,11 @@ const getContent = (item) => {
       content: item.content,
     },
     () => {
+      window.alert("글이 작성되었습니다.");
       router.push({ path: "/board" });
     },
     (error) => {
+      window.alert("글 작성에 실패했습니다.");
       console.log(error);
     }
   );

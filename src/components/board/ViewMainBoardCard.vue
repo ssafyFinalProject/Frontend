@@ -13,10 +13,10 @@ defineProps({
       rel="noopener noreferrer"
       rounded="lg"
       variant="elevated"
-      :title="boardInfo.title"
-      :subtitle="`${boardInfo.nickname} · ${boardInfo.view} views`"
+      :title="boardInfo?.title"
+      :subtitle="`${boardInfo?.member?.nickname} · ${boardInfo?.view} views`"
       :text="boardInfo.content"
-      :to="`/board/detail/${boardInfo.boardId}`"
+      :to="`/board/detail/${boardInfo?.boardId}`"
     >
       <v-overlay
         opacity=".06"

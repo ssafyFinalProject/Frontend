@@ -3,7 +3,7 @@ import { localAxios } from "@/utils/http-commons";
 const local = localAxios();
 
 const checkMemberDuplicate = (nickName, success, fail) => {
-    return local.get(`/member/duplicate?name=${nickName}`, {headers : {'Authorization':null}})
+    return local.get(`/member/duplicate/nickname?name=${nickName}`, {headers : {'Authorization':null}})
     .then(success)
     .catch(fail)
 }

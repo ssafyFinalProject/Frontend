@@ -3,13 +3,13 @@ import { defineStore } from 'pinia'
 
 export const useAppStore = defineStore('app', {
   state: () => ({
-    // userInfo : null,
-    userInfo : {
-      email: "temp@temp.com",
-      nickname: "temp",
-      password: "temp",
+    userInfo : null,
+    // userInfo : {
+    //   email: "temp@temp.com",
+    //   nickname: "temp",
+    //   password: "temp",
 
-    },
+    // },
     signStatus : ""
   }),
 
