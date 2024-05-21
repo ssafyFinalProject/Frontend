@@ -14,38 +14,28 @@ const showPlan = () => {
 
 <template>
   <v-col cols="4">
-    <v-card class="mx-auto mb-1" max-width="344" @click="showPlan">
+    <v-card class="mb-1">
       <v-img
-        height="150px"
-        src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
+        :src="plan.src"
+        class="align-end"
+        gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
+        height="200px"
         cover
-      ></v-img>
+      >
+        <v-card-title class="pb-0">{{ plan.title }}</v-card-title>
+        <v-card-subtitle class="mb-3"> {{ plan.subtitle }} </v-card-subtitle>
+      </v-img>
 
-      <v-card-title> {{ props.plan.title }} </v-card-title>
-
-      <v-card-subtitle class="mb-3">
-        {{ props.plan.subtitle }}
-      </v-card-subtitle>
-
-      <!-- <v-card-actions>
-        <v-btn color="orange-lighten-2" text="open"></v-btn>
-
+      <v-card-actions>
         <v-spacer></v-spacer>
-
+        <v-btn color="medium-emphasis" icon="mdi-pencil" size="small"> </v-btn>
         <v-btn
-          :icon="show ? 'mdi-chevron-up' : 'mdi-chevron-down'"
-          @click="show = !show"
+          @click="showPlan"
+          color="medium-emphasis"
+          icon="mdi-eye"
+          size="small"
         ></v-btn>
-      </v-card-actions> -->
-
-      <!-- <v-expand-transition>
-        <div v-show="show">
-          <v-divider></v-divider>
-          <v-card-text>
-            {{ props.plan.desc }}
-          </v-card-text>
-        </div>
-      </v-expand-transition> -->
+      </v-card-actions>
     </v-card>
   </v-col>
 </template>

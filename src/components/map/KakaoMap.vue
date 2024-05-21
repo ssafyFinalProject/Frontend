@@ -14,7 +14,7 @@
 
 <script setup>
 // https://www.npmjs.com/package/vue-kakao-maps
-import { ref, watch } from "vue";
+import { onMounted, ref, watch } from "vue";
 import {
   KakaoMap,
   MapTypeControl,
@@ -22,20 +22,29 @@ import {
   useKakaoLoader,
 } from "vue-kakao-maps";
 
-useKakaoLoader({ appKey: import.meta.env.VITE_KAKAO_API_KEY });
-const center = ref({ lat: 37.5013, lng: 127.0395 });
-const props = defineProps(["height", "markers"]);
+onMounted(() => {
+  useKakaoLoader({ appKey: import.meta.env.VITE_KAKAO_API_KEY });
+});
 
+const props = defineProps(["height", "markers", "center"]);
+
+// const center = ref(props.center);
+// watch(
+//   () => props.center,
+//   (value) => {
+//     center.value = value;
+//   }
+// );
+
+const style = ref({
+  height: props.height + "px",
+});
 watch(
   () => props.height,
   (value) => {
     style.value.height = value + "px";
   }
 );
-
-const style = ref({
-  height: props.height + "px",
-});
 </script>
 
 <style scoped></style>

@@ -45,7 +45,9 @@ const plans = ref([
         </v-col>
         <v-col class="d-flex justify-end">
           <v-btn @click="moveEditPage">
-            <v-tooltip activator="parent" location="top">글작성</v-tooltip>
+            <v-tooltip activator="parent" location="top"
+              >계획 생성하기</v-tooltip
+            >
             <v-icon>mdi-pencil</v-icon>
           </v-btn>
         </v-col>

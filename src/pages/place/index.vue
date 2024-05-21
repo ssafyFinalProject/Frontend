@@ -2,27 +2,53 @@
   <v-container class="fill-height">
     <v-responsive class="align-centerfill-height mx-auto" max-width="900">
       <kakao-map
+        id="kakao-map"
         class="border-sm rounded"
+        :center="center"
         :height="height"
         :markers="markers"
       ></kakao-map>
       <view-map-size-button-toggle @update-map-size="changeHeight" />
+
       <v-divider class="mt-3 mb-3"></v-divider>
+
       <view-search-place @send-search-info="doSearch" />
+
       <v-divider class="mt-3 mb-3"></v-divider>
-      <view-search-result v-if="places.length > 0" :searchs="places" />
-      <!-- <div v-else>
-        <h1>there has no one</h1>
-      </div> -->
+
+      <view-search-result-card
+        @go-to-map="doGoToMap"
+        v-if="places.length > 0"
+        :searchs="places"
+      />
+      <div v-if="places.length == 0 && isSearched" class="text-center">
+        <h1 class="text-h4 font-weight-bold mt-4 mb-2">
+          검색 결과가 없습니다.
+        </h1>
+      </div>
     </v-responsive>
   </v-container>
 </template>
 
 <script setup>
 import { ref } from "vue";
+import {
+  findPlaceByDetail,
+  findPlaceListByCategory,
+  findPlaceListByName,
+  findPlaceListByRoadAddress,
+} from "@/api/place";
+
+const doGoToMap = (search) => {
+  changeCenter(search.latitude, search.longitude);
+  const element = document.getElementById("kakao-map");
+  if (element) {
+    element.scrollIntoView({ behavior: "smooth" });
+  }
+};
 
 const height = ref(300);
-
+const center = ref({ lat: 37.5013, lng: 127.04 });
 const isSearched = ref(false);
 const places = ref([
   {
@@ -84,10 +110,59 @@ const changeHeight = (value) => {
   }
 };
 
+// 지도의 중심을 바꾸는 함수
+const changeCenter = (lat, lng) => {
+  center.value.lat = lat;
+  center.value.lng = lng;
+};
+
 // 검색타입과 검색어를 받아서 검색하는 함수
 const doSearch = (value) => {
   const { select, searchContent } = value;
 
+  if (select == 0) {
+    findPlaceByDetail(
+      searchContent,
+      ({ data }) => {
+        places.value = data;
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  } else if (select == 1) {
+    findPlaceListByCategory(
+      searchContent,
+      ({ data }) => {
+        places.value = data;
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  } else if (select == 2) {
+    findPlaceListByName(
+      searchContent,
+      ({ data }) => {
+        places.value = data;
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  } else if (select == 3) {
+    findPlaceListByRoadAddress(
+      searchContent,
+      ({ data }) => {
+        places.value = data;
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
+
+  isSearched.value = true;
   console.log(value);
 };
 </script>

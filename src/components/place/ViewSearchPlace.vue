@@ -23,7 +23,7 @@ const emit = defineEmits(["sendSearchInfo"]);
 
 const searchContent = ref("");
 const select = ref(0);
-const tags = ref(["all", "category", "road", "name"]);
+const tags = ref(["all", "category", "name", "road"]);
 
 const doSendSearchInfo = () => {
   emit("sendSearchInfo", {

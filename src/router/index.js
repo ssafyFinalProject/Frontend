@@ -27,12 +27,12 @@ router.beforeEach((to, from, next) => {
   }
 })
 
-router.beforeEach((to, from, next) => {
-  if (!localStorage.getItem("accessToken") && to.path !== '/login' && to.path !== '/signup') {
-    next('/login')
-  } else {
-    next()
-  }
-})
+// router.beforeEach((to, from, next) => {
+//   if (!localStorage.getItem("accessToken") && to.path !== '/login' && to.path !== '/signup') {
+//     next('/login')
+//   } else {
+//     next()
+//   }
+// })
 
 export default router

@@ -13,14 +13,11 @@
 
     <v-card-actions>
       <v-spacer></v-spacer>
-
       <v-btn color="medium-emphasis" icon="mdi-heart" size="small"></v-btn>
-
-      <v-btn color="medium-emphasis" icon="mdi-bookmark" size="small"></v-btn>
-
       <v-btn
+        @click="doGoToMap"
         color="medium-emphasis"
-        icon="mdi-share-variant"
+        icon="mdi-map"
         size="small"
       ></v-btn>
     </v-card-actions>
@@ -31,6 +28,11 @@
 import { ref } from "vue";
 
 const props = defineProps(["search"]);
+const emit = defineEmits(["goToMap"]);
+
+const doGoToMap = () => {
+  emit("goToMap", props.search);
+};
 </script>
 
 <style scoped></style>
