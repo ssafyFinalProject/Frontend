@@ -6,22 +6,24 @@ import { logout } from "@/api/auth";
 
 const userInfo = ref({});
 const store = useAppStore();
-
-onMounted(() => {
+onMounted(async () => {
   userInfo.value = store.getUserInfo;
 });
 const router = useRouter();
 
 const doLogout = () => {
+  console.log("logout");
   logout(
     () => {
       localStorage.removeItem("app");
       localStorage.removeItem("accessToken");
       localStorage.removeItem("refreshToken");
+      store.$reset();
+
       router.replace({ path: "/login" });
     },
     (error) => {
-      console.log(error);
+      window.alert(error);
     }
   );
 };
@@ -31,9 +33,9 @@ const doLogout = () => {
   <v-navigation-drawer expand-on-hover rail permanent>
     <v-list>
       <v-list-item
-        prepend-avatar="https://randomuser.me/api/portraits/women/85.jpg"
-        :subtitle="userInfo.email"
-        :title="userInfo.nickname"
+        prepend-avatar="https://cdn.vuetifyjs.com/images/john.jpg"
+        :subtitle="userInfo && userInfo.email"
+        :title="userInfo && userInfo.nickname"
       ></v-list-item>
     </v-list>
 
@@ -66,7 +68,7 @@ const doLogout = () => {
       ></v-list-item>
       <v-list-item
         prepend-icon="mdi-heart"
-        title="추천 여행지"
+        title="핫플레이스"
         value="recommend"
         :to="{ path: '/recommend' }"
       ></v-list-item>

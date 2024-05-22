@@ -58,5 +58,11 @@ const deleteMyPlace = (placeId, success, fail) => {
         .catch(fail)
 }
 
+const getTopFavoritePlace = (count, success, fail) => {
+    return local.get(`/place/top?count=${count}`)
+        .then(success)
+        .catch(fail)
+}
 
-export {findPlaceListByCategory, findPlaceListByName, findPlaceListByRoadAddress, findPlaceByDetail, getMyPlaceList, registMyPlace, deleteMyPlace,}
+
+export {findPlaceListByCategory, findPlaceListByName, findPlaceListByRoadAddress, findPlaceByDetail, getMyPlaceList, registMyPlace, deleteMyPlace, getTopFavoritePlace, }

@@ -12,27 +12,33 @@ import { setupLayouts } from 'virtual:generated-layouts'
 const routes = import.meta.glob('./src/pages/*.vue')
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
-  // routes: setupLayouts(routes),
-  // base: import.meta.env.BASE_URL,
+  history: createWebHistory(),
   extendRoutes: setupLayouts,
   routes,
+  // routes: setupLayouts(routes),
+  // base: import.meta.env.BASE_URL,
 })
 
 router.beforeEach((to, from, next) => {
-  if (to.path === '/board') {
+  if (to.path === '/board' || to.path === '/board/') {
     next('/board/1');
   } else {
     next();
   }
 })
 
-// router.beforeEach((to, from, next) => {
-//   if (!localStorage.getItem("accessToken") && to.path !== '/login' && to.path !== '/signup') {
-//     next('/login')
-//   } else {
-//     next()
+// router.beforeEach((to, from, next) => { 
+//   if (to.path==='/login' && localStorage.getItem("accessToken")) {
+//     next('/');
 //   }
 // })
 
-export default router
+router.beforeEach((to, from, next) => {
+  if (!localStorage.getItem("accessToken") && to.path !== '/login' && to.path !== '/signup') {
+    next('/login')
+  } else {
+    next()
+  }
+})
+
+export default router;

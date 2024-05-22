@@ -6,16 +6,19 @@
           <h1>plan</h1>
         </v-col>
         <v-col class="d-flex justify-end">
-          <v-btn @click="moveEditPage">
-            <v-tooltip activator="parent" location="top"
-              >계획 생성하기</v-tooltip
-            >
-            <v-icon>mdi-pencil</v-icon>
-          </v-btn>
+          <router-view>
+            <v-btn :to="{ path: `/plan/edit` }">
+              <v-tooltip activator="parent" location="top"
+                >계획 생성하기</v-tooltip
+              >
+              <v-icon>mdi-pencil</v-icon>
+            </v-btn>
+          </router-view>
         </v-col>
       </v-row>
       <v-row>
         <view-main-plan-card
+          @remove-plan="doRemovePlan"
           v-for="plan in plans"
           :key="plan.title"
           :plan="plan"
@@ -27,12 +30,11 @@
 
 <script setup>
 import { ref, onMounted } from "vue";
-import { useRouter } from "vue-router/auto";
-
-import { getPlanList } from "@/api/plan";
+import { getPlanList, deletePlan } from "@/api/plan";
 
 const plans = ref([]);
 onMounted(() => {
+  console.log("mounted");
   getPlanList(
     ({ data }) => {
       plans.value = data;
@@ -43,10 +45,25 @@ onMounted(() => {
   );
 });
 
-const router = useRouter();
-
-const moveEditPage = () => {
-  router.push({ path: "/plan/edit" });
+const doRemovePlan = (planId) => {
+  deletePlan(
+    planId,
+    () => {
+      window.alert("계획이 삭제되었습니다.");
+      getPlanList(
+        ({ data }) => {
+          plans.value = data;
+        },
+        (error) => {
+          window.alert(error);
+        }
+      );
+    },
+    (error) => {
+      window.alert("계획 삭제에 실패했습니다.");
+      console.log(error);
+    }
+  );
 };
 </script>
 

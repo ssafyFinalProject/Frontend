@@ -46,10 +46,6 @@ const clickPage = () => {
   );
   router.push({ path: `/board/${no.value}` });
 };
-
-const moveEditPage = () => {
-  router.push({ path: "/board/edit" });
-};
 </script>
 
 <template>
@@ -61,10 +57,12 @@ const moveEditPage = () => {
             <h1>page #{{ no }}</h1>
           </v-col>
           <v-col class="d-flex justify-end">
-            <v-btn @click="moveEditPage">
-              <v-tooltip activator="parent" location="top">글작성</v-tooltip>
-              <v-icon>mdi-pencil</v-icon>
-            </v-btn>
+            <router-view>
+              <v-btn :to="{ path: `/board/edit` }">
+                <v-tooltip activator="parent" location="top">글작성</v-tooltip>
+                <v-icon>mdi-pencil</v-icon>
+              </v-btn>
+            </router-view>
           </v-col>
         </v-row>
       </v-container>

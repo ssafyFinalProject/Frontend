@@ -3,7 +3,7 @@ import { localAxios } from "@/utils/http-commons";
 const local = localAxios();
 
 const checkMemberDuplicate = (nickName, success, fail) => {
-    return local.get(`/member/duplicate/nickname?name=${nickName}`, {headers : {'Authorization':null}})
+    local.get(`/member/duplicate/nickname?name=${nickName}`, {headers : {'Authorization':null}})
     .then(success)
     .catch(fail)
 }
@@ -15,7 +15,7 @@ const getMemberByNickName = (nickName, success, fail) => {
 }
 
 const getMemberByJWT = (success, fail) => {
-    local.get('/member/me')
+    localAxios().get('/member/me')
     .then(success)
     .catch(fail)
 }

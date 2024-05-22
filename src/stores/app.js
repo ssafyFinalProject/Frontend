@@ -3,20 +3,12 @@ import { defineStore } from 'pinia'
 
 export const useAppStore = defineStore('app', {
   state: () => ({
-    userInfo : null,
-    // userInfo : {
-    //   email: "temp@temp.com",
-    //   nickname: "temp",
-    //   password: "temp",
-
-    // },
+    userInfo : {},
     signStatus : ""
   }),
 
   getters: {
-    getUserInfo() {
-      return this.userInfo;
-    }
+    getUserInfo: (state) => state.userInfo,
   },
 
   actions: {
@@ -26,6 +18,10 @@ export const useAppStore = defineStore('app', {
 
     setSignStatus(signStatus) {
       this.signStatus = signStatus;
+    },
+    reset() {
+      this.userInfo = {};
+      this.signStatus = "";
     }
   },
 

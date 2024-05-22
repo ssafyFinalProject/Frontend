@@ -3,7 +3,6 @@ import { ref } from "vue";
 import { useRouter } from "vue-router";
 import { validateEmail, validatePassword } from "@/utils/validations";
 import { login } from "@/api/auth";
-import { getMemberByJWT } from "@/api/member";
 import { useAppStore } from "@/stores/app";
 
 const router = useRouter();
@@ -24,11 +23,15 @@ const doLogin = async () => {
     },
     ({ data }) => {
       localStorage.removeItem("app");
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("refreshToken");
+      store.reset();
 
       const signStatus = data.signStatus;
       store.setSignStatus(signStatus);
 
       const token = data.tokenDto;
+
       localStorage.setItem("accessToken", token.accessToken);
       localStorage.setItem("refreshToken", token.refreshToken);
 

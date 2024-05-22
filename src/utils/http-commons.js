@@ -1,7 +1,9 @@
 import axios from "axios";
-//const { VITE_API_BASE_URL } ="http://localhost/"
 
 const localAxios = () => {
+    console.log("local", localStorage.getItem('accessToken'));
+
+
     return axios.create({
         baseURL: import.meta.env.VITE_BASE_URL,
         headers: {

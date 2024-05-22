@@ -9,7 +9,7 @@ import {
   validatePassword,
 } from "@/utils/validations";
 
-import { checkMemberDuplicate, getMemberByJWT } from "@/api/member";
+import { checkMemberDuplicate } from "@/api/member";
 import { signUp } from "@/api/auth";
 
 const router = useRouter();
@@ -65,14 +65,14 @@ const doSignUP = async () => {
       localStorage.setItem("accessToken", token);
       localStorage.setItem("refreshToken", token);
 
-      // router.push({ path: "/" });
+      router.push({ path: "/" });
     },
     (error) => {
       window.alert(error);
       router.push({ path: "/signup" });
     }
   );
-  router.push({ path: "/" });
+  // router.push({ path: "/" });
 };
 </script>
 

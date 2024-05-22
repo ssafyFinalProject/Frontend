@@ -1,3 +1,42 @@
+<template>
+  <v-container class="fill-height">
+    <v-responsive class="align-centerfill-height mx-auto" max-width="900">
+      <div>
+        <v-timeline side="end">
+          <v-timeline-item
+            v-for="(item, index) in posts"
+            @click="changeCenter(item.latitude, item.longitude)"
+            :key="item.postId"
+            dot-color="primary"
+            size="small"
+          >
+            <view-plan-time-line-card :item="item" :index="index" />
+            <div>
+              <KakaoMap
+                id="kakao-map"
+                class="border-sm rounded"
+                :center="{
+                  lat: item.place.latitude,
+                  lng: item.place.longitude,
+                }"
+                :markers="[
+                  {
+                    content: item.place.name,
+                    lat: item.place.latitude,
+                    lng: item.place.longitude,
+                  },
+                ]"
+                :height="180"
+              ></KakaoMap>
+            </div>
+            <br />
+          </v-timeline-item>
+        </v-timeline>
+      </div>
+    </v-responsive>
+  </v-container>
+</template>
+
 <script setup>
 import { ref, onMounted } from "vue";
 import { useRoute } from "vue-router/auto";
@@ -7,7 +46,6 @@ const plan = ref({});
 const posts = ref([]);
 const route = useRoute();
 
-const center = ref({ lat: 37.5013, lng: 127.04 });
 onMounted(() => {
   const planId = route.params.no;
   getPlan(
@@ -15,7 +53,9 @@ onMounted(() => {
     ({ data }) => {
       plan.value = data.plan;
       posts.value = data.posts;
-      console.log(posts);
+      posts.value.sort((a, b) => {
+        return new Date(a.postDay) - new Date(b.postDay);
+      });
     },
     (error) => {
       window.alert(error);
@@ -23,22 +63,5 @@ onMounted(() => {
   );
 });
 </script>
-
-<template>
-  <v-container class="fill-height">
-    <v-responsive class="align-centerfill-height mx-auto" max-width="900">
-      <v-timeline side="end">
-        <v-timeline-item
-          v-for="(item, index) in posts"
-          :key="item.postId"
-          dot-color="primary"
-          size="small"
-        >
-          <view-plan-time-line-card :item="item" :index="index" />
-        </v-timeline-item>
-      </v-timeline>
-    </v-responsive>
-  </v-container>
-</template>
 
 <style scoped></style>

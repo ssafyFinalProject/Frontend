@@ -34,8 +34,9 @@
               <template #subtitle>
                 <div class="text-subtitle-1">
                   여행을 계획하고 관리해보세요.
-                  <v-kbd>여행지 검색</v-kbd> 과 <v-kbd>추천 여행지</v-kbd>를
-                  참고할 수 있습니다.
+                  <br />
+                  <v-kbd>여행지 검색</v-kbd> 과 <v-kbd>추천 여행지</v-kbd> 등을
+                  이용하여 참고할 수 있습니다.
                 </div>
               </template>
 
@@ -67,10 +68,9 @@ import { getMemberByJWT } from "@/api/member";
 
 const store = useAppStore();
 const userInfo = ref({});
-onMounted(async () => {
+onMounted(() => {
   getMemberByJWT(
     ({ data }) => {
-      console.log(data);
       store.setUserInfo(data);
       userInfo.value = data;
     },
@@ -91,15 +91,15 @@ const subCardInfos = [
     link: "/place",
   },
   {
-    title: "추천 여행지 & 핫플레이스",  
-    icon: "mdi-heart-outline",
+    title: "추천 여행지",
+    icon: "mdi-lightbulb-on-outline",
     subtitle: "ChatGPT를 통한 추천을 받아보세요.",
     link: "/recommend",
   },
   {
-    title: "마이페이지",
-    icon: "mdi-account",
-    subtitle: "내 정보를 확인하고 수정해보세요.",
+    title: "핫플레이스",
+    icon: "mdi-heart-outline",
+    subtitle: "인기있는 여행지를 확인해보세요.",
     link: "/member/mypage",
   },
   {
