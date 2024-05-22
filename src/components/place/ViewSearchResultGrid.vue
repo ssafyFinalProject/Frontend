@@ -3,10 +3,11 @@
     <v-container fluid>
       <v-row dense>
         <v-col v-for="item in searchs" :key="item.id" :cols="4">
-          <view-search-detail
+          <view-search-detail-card
             @add-favorite="doAddFavorite"
             @go-to-map="doGoToMap"
             :search="item"
+            :favorite="favorites.has(item.placeId)"
           />
         </v-col>
       </v-row>
@@ -15,8 +16,7 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
-const props = defineProps(["searchs"]);
+const props = defineProps(["searchs", "favorites"]);
 const emit = defineEmits(["goToMap", "addFavorite"]);
 
 const doGoToMap = (search) => {

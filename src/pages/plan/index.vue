@@ -1,28 +1,3 @@
-<script setup>
-import { ref, onMounted } from "vue";
-import { useRouter } from "vue-router/auto";
-
-import { getPlanList } from "@/api/plan";
-
-const plans = ref([]);
-onMounted(() => {
-  getPlanList(
-    ({ data }) => {
-      plans.value = data;
-    },
-    (error) => {
-      window.alert(error);
-    }
-  );
-});
-
-const router = useRouter();
-
-const moveEditPage = () => {
-  router.push({ path: "/plan/edit" });
-};
-</script>
-
 <template>
   <v-container class="fill-height">
     <v-responsive class="align-centerfill-height mx-auto" max-width="900">
@@ -49,5 +24,31 @@ const moveEditPage = () => {
     </v-responsive>
   </v-container>
 </template>
+
+<script setup>
+import { ref, onMounted } from "vue";
+import { useRouter } from "vue-router/auto";
+
+import { getPlanList } from "@/api/plan";
+
+const plans = ref([]);
+onMounted(() => {
+  getPlanList(
+    ({ data }) => {
+      plans.value = data;
+      console.log(plans.value);
+    },
+    (error) => {
+      window.alert(error);
+    }
+  );
+});
+
+const router = useRouter();
+
+const moveEditPage = () => {
+  router.push({ path: "/plan/edit" });
+};
+</script>
 
 <style scoped></style>

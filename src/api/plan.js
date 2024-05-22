@@ -15,6 +15,7 @@ const getPlan = (planId, success, fail) => {
 }
 
 const registPlan = (makePlanRequest, success, fail) => {
+    console.log(makePlanRequest);
     local.post('/plan', makePlanRequest)
         .then(success)
         .catch(fail)
@@ -32,4 +33,24 @@ const deletePlan = (planId, success, fail) => {
         .catch(fail)
 }
 
-export { getPlanList, getPlan, registPlan, updatePlan, deletePlan}
+const registPost = (makePostRequest, success, fail) => {
+    console.log(makePostRequest);
+    local.post('/plan/post', makePostRequest)
+        .then(success)
+        .catch(fail)
+}
+
+const updatePost = (updatePostRequest, success, fail) => {
+    local.put(`/plan/post`, updatePostRequest)
+        .then(success)
+        .catch(fail)
+}
+
+const deletePost = (postId, success, fail) => {
+    console.log(`/plan/post?id=${postId}`);
+    local.delete(`/plan/post?id=${postId}`)
+        .then(success)
+        .catch(fail)
+}
+
+export { getPlanList, getPlan, registPlan, updatePlan, deletePlan, registPost, updatePost, deletePost}

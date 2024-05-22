@@ -39,20 +39,21 @@ const findPlaceByDetail = (success, fail, args = {}) => {
 }
 
 const getMyPlaceList = (success, fail) => {
-    return local.get(`/place/me`)
+    return local.get(`/place/me`, {timeout: 5000})
         .then(success)
         .catch(fail)
 } 
 
 const registMyPlace = (placeId, success, fail) => {
-  console.log("placeId", placeId);
-    return local.post(`/place/me`, {placeId: placeId})
+  console.log(placeId);
+  return local.post(`/place/me`, {placeId: placeId})
         .then(success)
         .catch(fail)
 }
 
 const deleteMyPlace = (placeId, success, fail) => {
-    return local.delete(`/place/me`, {placeId: placeId})
+    console.log("placeId", placeId);
+    return local.delete(`/place/me`, {data: { placeId: placeId }})
         .then(success)
         .catch(fail)
 }

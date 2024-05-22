@@ -6,6 +6,8 @@ import { getPlan } from "@/api/plan";
 const plan = ref({});
 const posts = ref([]);
 const route = useRoute();
+
+const center = ref({ lat: 37.5013, lng: 127.04 });
 onMounted(() => {
   const planId = route.params.no;
   getPlan(
@@ -13,22 +15,13 @@ onMounted(() => {
     ({ data }) => {
       plan.value = data.plan;
       posts.value = data.posts;
+      console.log(posts);
     },
     (error) => {
       window.alert(error);
     }
   );
 });
-
-// const posts = ref([
-//   { id: 1, color: "primary", icon: "mdi-account", date: "2021-01-01" },
-//   { id: 2, color: "secondary", icon: "mdi-account", date: "2021-02-01" },
-//   { id: 3, color: "accent", icon: "mdi-account", date: "2021-03-01" },
-//   { id: 4, color: "error", icon: "mdi-account", date: "2021-04-01" },
-//   { id: 5, color: "warning", icon: "mdi-account", date: "2021-05-01" },
-//   { id: 6, color: "info", icon: "mdi-account", date: "2021-06-01" },
-//   { id: 7, color: "success", icon: "mdi-account", date: "2021-07-01" },
-// ]);
 </script>
 
 <template>
@@ -36,14 +29,15 @@ onMounted(() => {
     <v-responsive class="align-centerfill-height mx-auto" max-width="900">
       <v-timeline side="end">
         <v-timeline-item
-          v-for="item in posts"
-          :key="item.id"
-          :dot-color="item.color"
+          v-for="(item, index) in posts"
+          :key="item.postId"
+          dot-color="primary"
           size="small"
         >
-          <view-plan-time-line-card :item="item" />
+          <view-plan-time-line-card :item="item" :index="index" />
         </v-timeline-item>
       </v-timeline>
+      <KaKaoMap :center="{ lat: 37, lng: 128 }"></KaKaoMap>
     </v-responsive>
   </v-container>
 </template>
