@@ -91,7 +91,7 @@ const subCardInfos = [
     link: "/place",
   },
   {
-    title: "추천 여행지 & 핫플레이스",
+    title: "추천 여행지 & 핫플레이스",  
     icon: "mdi-heart-outline",
     subtitle: "ChatGPT를 통한 추천을 받아보세요.",
     link: "/recommend",

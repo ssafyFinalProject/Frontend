@@ -47,7 +47,6 @@ const updatePost = (updatePostRequest, success, fail) => {
 }
 
 const deletePost = (postId, success, fail) => {
-    console.log(`/plan/post?id=${postId}`);
     local.delete(`/plan/post?id=${postId}`)
         .then(success)
         .catch(fail)

@@ -18,7 +18,7 @@ const doLogout = () => {
       localStorage.removeItem("app");
       localStorage.removeItem("accessToken");
       localStorage.removeItem("refreshToken");
-      // router.replace({ path: "/login" });
+      router.replace({ path: "/login" });
     },
     (error) => {
       console.log(error);

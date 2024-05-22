@@ -36,7 +36,6 @@ onMounted(() => {
   getPlanList(
     ({ data }) => {
       plans.value = data;
-      console.log(plans.value);
     },
     (error) => {
       window.alert(error);

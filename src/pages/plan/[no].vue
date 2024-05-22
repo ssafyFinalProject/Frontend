@@ -37,7 +37,6 @@ onMounted(() => {
           <view-plan-time-line-card :item="item" :index="index" />
         </v-timeline-item>
       </v-timeline>
-      <KaKaoMap :center="{ lat: 37, lng: 128 }"></KaKaoMap>
     </v-responsive>
   </v-container>
 </template>
