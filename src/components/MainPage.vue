@@ -1,10 +1,10 @@
 <template>
   <v-container class="fill-height">
     <v-responsive class="align-centerfill-height mx-auto" max-width="900">
-      <v-img class="mb-4" height="150" src="@/assets/ssafy-logo.png" />
+      <v-img class="mb-4" height="165" src="@/assets/fyp-logo.png" />
 
       <div class="text-center">
-        <div class="text-body-1 font-weight-500 mb-n1">We plan, We go</div>
+        <!-- <div class="text-body-1 font-weight-500 mb-n1">We plan, We go</div> -->
         <h1 class="text-h3 font-weight-bold mt-4">
           {{ userInfo.nickname }}님 환영합니다.
         </h1>

@@ -107,31 +107,35 @@ const doSignUP = async () => {
   <v-container class="fill-height">
     <v-responsive class="align-centerfill-height mx-auto" max-width="900">
       <view-loading v-if="loading"></view-loading>
+      <v-img height="165" src="@/assets/fyp-logo.png" />
       <div class="text-center">
-        <h1 class="text-h4 font-weight-bold mt-4 mb-2">SIGN UP</h1>
+        <h1 class="text-h4 font-weight-bold mb-2">SIGN UP</h1>
       </div>
       <v-sheet class="mx-auto" width="350">
         <v-form fast-fail @submit.prevent>
           <v-text-field
-            class="ms-1 me-1"
+            class="ms-1 me-1 mt-1 mb-1"
             v-model="nickname"
             label="닉네임"
             :rules="[validateNickname]"
+            variant="solo"
           ></v-text-field>
 
           <v-text-field
-            class="ms-1 me-1"
+            class="ms-1 me-1 mt-1 mb-1"
             v-model="email"
             label="이메일"
             :rules="[validateEmail]"
+            variant="solo"
           ></v-text-field>
 
           <v-text-field
-            class="ms-1 me-1"
+            class="ms-1 me-1 mt-1 mb-1"
             v-model="password"
             label="비밀번호"
             type="password"
             :rules="[validatePassword]"
+            variant="solo"
           ></v-text-field>
 
           <v-btn class="mt-2 mb-2" type="submit" @click="doSignUP" block

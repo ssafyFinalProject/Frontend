@@ -159,8 +159,8 @@ const doSearch = (value) => {
   if (searchContent.length == 0) {
     return;
   }
-
   loading.value = true;
+
   if (select == 0) {
     findPlaceByDetail(
       searchContent,
@@ -171,6 +171,7 @@ const doSearch = (value) => {
         window.alert(error);
       }
     );
+    loading.value = false;
   } else if (select == 1) {
     findPlaceListByCategory(
       searchContent,
@@ -182,6 +183,7 @@ const doSearch = (value) => {
         console.log(error);
       }
     );
+    loading.value = false;
   } else if (select == 2) {
     findPlaceListByName(
       searchContent,
@@ -193,6 +195,7 @@ const doSearch = (value) => {
         window.alert(error);
       }
     );
+    loading.value = false;
   } else if (select == 3) {
     findPlaceListByRoadAddress(
       searchContent,
@@ -204,8 +207,8 @@ const doSearch = (value) => {
         window.alert(error);
       }
     );
+    loading.value = false;
   }
-  loading.value = false;
 };
 </script>
 
