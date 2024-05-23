@@ -1,6 +1,7 @@
 <template>
   <v-container class="fill-height">
     <v-responsive class="align-centerfill-height mx-auto" max-width="900">
+      <view-loading v-if="loading" />
       <KakaoMap
         id="kakao-map"
         class="border-sm rounded"
@@ -45,6 +46,7 @@ import {
 
 const myPlace = ref([]);
 const placeIdSet = ref(null);
+const loading = ref(false);
 
 onMounted(() => {
   placeIdSet.value = new Set();
@@ -69,10 +71,10 @@ const doAddFavorite = (search) => {
       search.placeId,
       ({ data }) => {
         myPlace.value.push(data);
-        window.alert("즐겨찾기에 추가되었습니다.");
+        // window.alert("즐겨찾기에 추가되었습니다.");
       },
       () => {
-        window.alert("즐겨찾기 추가에 실패했습니다.");
+        // window.alert("즐겨찾기 추가에 실패했습니다.");
       }
     );
   } else {
@@ -82,7 +84,7 @@ const doAddFavorite = (search) => {
         myPlace.value = myPlace.value.filter(
           (place) => place.placeId != search.placeId
         );
-        window.alert("즐겨찾기에서 삭제되었습니다.");
+        // window.alert("즐겨찾기에서 삭제되었습니다.");
       },
       (error) => {
         window.alert(error);
@@ -99,7 +101,7 @@ const doGoToMap = (search) => {
   }
 };
 
-const height = ref(300);
+const height = ref(500);
 const center = ref({ lat: 37.5013, lng: 127.04 });
 const isSearched = ref(false);
 const places = ref([]);
@@ -158,6 +160,7 @@ const doSearch = (value) => {
     return;
   }
 
+  loading.value = true;
   if (select == 0) {
     findPlaceByDetail(
       searchContent,
@@ -202,8 +205,7 @@ const doSearch = (value) => {
       }
     );
   }
-
-  console.log(value);
+  loading.value = false;
 };
 </script>
 

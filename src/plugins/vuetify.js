@@ -16,7 +16,6 @@ export default createVuetify({
     defaults: {
       palettes: {
         primary: {
-          // Fresh, vibrant blue, reminiscent of the sky and ocean
           base: '#03A9F4',
           darken1: '#0079D3',
           darken2: '#005CB2',
@@ -24,7 +23,6 @@ export default createVuetify({
           lighten2: '#82E9FF',
         },
         secondary: {
-          // Energetic orange, evoking warmth and sunshine
           base: '#FF5722',
           darken1: '#F44336',
           darken2: '#EB3822',
@@ -32,7 +30,6 @@ export default createVuetify({
           lighten2: '#FF9D80',
         },
         accent: {
-          // Playful yellow, reminiscent of summer and joy
           base: '#FFEB3B',
           darken1: '#F8D628',
           darken2: '#F9C801',

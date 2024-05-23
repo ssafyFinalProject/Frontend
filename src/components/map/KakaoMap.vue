@@ -27,7 +27,6 @@ onMounted(() => {
 });
 
 const props = defineProps(["height", "markers", "center"]);
-console.log(props);
 const style = ref({
   height: props.height + "px",
 });

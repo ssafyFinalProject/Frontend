@@ -1,11 +1,12 @@
 <template>
   <v-container class="fill-height">
     <v-responsive class="align-centerfill-height mx-auto" max-width="900">
+      <view-loading v-if="loading" />
       <KakaoMap
         id="kakao-map"
         class="border-sm rounded"
-        :markers="getMarkers"
         :center="center"
+        :markers="getMarkers"
         :height="500"
       ></KakaoMap>
       <v-divider class="mt-5 mb-5"></v-divider>
@@ -39,7 +40,9 @@ const favorites = ref([]);
 // const markers = ref([]);
 const center = ref({ lat: 37.5013, lng: 127.04 });
 const placeIdSet = ref(null);
+const loading = ref(false);
 onMounted(() => {
+  loading.value = true;
   getTopFavoritePlace(
     30,
     ({ data }) => {
@@ -49,6 +52,7 @@ onMounted(() => {
       //   lat: place.latitude,
       //   lng: place.longitude,
       // }));
+      loading.value = false;
     },
     (error) => {
       window.alert(error);
@@ -97,7 +101,7 @@ const doAddFavorite = (search) => {
       search.placeId,
       () => {
         placeIdSet.value.add(search.placeId);
-        window.alert("즐겨찾기에 추가되었습니다.");
+        // window.alert("즐겨찾기에 추가되었습니다.");
       },
       () => {
         window.alert("즐겨찾기 추가에 실패했습니다.");
@@ -108,7 +112,7 @@ const doAddFavorite = (search) => {
       search.placeId,
       () => {
         placeIdSet.value.delete(search.placeId);
-        window.alert("즐겨찾기에서 삭제되었습니다.");
+        // window.alert("즐겨찾기에서 삭제되었습니다.");
       },
       (error) => {
         window.alert(error);

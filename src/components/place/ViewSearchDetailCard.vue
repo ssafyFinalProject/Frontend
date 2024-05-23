@@ -1,7 +1,7 @@
 <template>
   <v-card>
     <v-img
-      :src="search.img"
+      :src="search.img || 'https://placehold.co/600x400/sky/white?text=:)'"
       class="align-end"
       gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
       height="200px"
@@ -16,6 +16,7 @@
     <v-card-actions v-if="!isPlan">
       <v-spacer></v-spacer>
       <v-btn
+        v-if="search.img"
         @click="doAddFavorite"
         :color="favorite ? 'red' : 'medium-emphasis'"
         icon="mdi-heart"
@@ -36,6 +37,7 @@
 const props = defineProps(["search", "favorite", "isPlan"]);
 const emit = defineEmits(["goToMap", "addFavorite"]);
 
+console.log("search", props.search);
 const doGoToMap = () => {
   emit("goToMap", props.search);
 };

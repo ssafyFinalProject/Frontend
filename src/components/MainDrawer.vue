@@ -1,36 +1,5 @@
-<script setup>
-import { ref, onMounted } from "vue";
-import { useRouter } from "vue-router/auto";
-import { useAppStore } from "@/stores/app";
-import { logout } from "@/api/auth";
-
-const userInfo = ref({});
-const store = useAppStore();
-onMounted(async () => {
-  userInfo.value = store.getUserInfo;
-});
-const router = useRouter();
-
-const doLogout = () => {
-  console.log("logout");
-  logout(
-    () => {
-      localStorage.removeItem("app");
-      localStorage.removeItem("accessToken");
-      localStorage.removeItem("refreshToken");
-      store.$reset();
-
-      router.replace({ path: "/login" });
-    },
-    (error) => {
-      window.alert(error);
-    }
-  );
-};
-</script>
-
 <template>
-  <v-navigation-drawer expand-on-hover rail permanent>
+  <v-navigation-drawer fixed="true" expand-on-hover rail permanent>
     <v-list>
       <v-list-item
         prepend-avatar="https://cdn.vuetifyjs.com/images/john.jpg"
@@ -67,6 +36,12 @@ const doLogout = () => {
         :to="{ path: '/place' }"
       ></v-list-item>
       <v-list-item
+        prepend-icon="mdi-lightbulb-on"
+        title="추천 여행지"
+        value="chatgpt"
+        :to="{ path: '/chatgpt' }"
+      ></v-list-item>
+      <v-list-item
         prepend-icon="mdi-heart"
         title="핫플레이스"
         value="recommend"
@@ -83,6 +58,16 @@ const doLogout = () => {
 
     <v-list density="compact" nav>
       <v-list-item
+        :title="`다크모드 : ${isDark ? 'OFF' : 'ON'}`"
+        value="dark"
+        prepend-icon="mdi-theme-light-dark"
+        @click="toggleTheme"
+      >
+      </v-list-item>
+    </v-list>
+
+    <v-list density="compact" nav>
+      <v-list-item
         prepend-icon="mdi-logout"
         title="로그아웃"
         value="logout"
@@ -91,5 +76,49 @@ const doLogout = () => {
     </v-list>
   </v-navigation-drawer>
 </template>
+
+<script setup>
+import { ref, onMounted } from "vue";
+import { useRouter } from "vue-router/auto";
+import { useAppStore } from "@/stores/app";
+import { logout } from "@/api/auth";
+import { useTheme } from "vuetify";
+
+const theme = useTheme();
+const userInfo = ref({});
+const isDark = ref(false);
+const store = useAppStore();
+
+const toggleTheme = () => {
+  if (theme.global.name.value === "dark") {
+    theme.global.name.value = "light";
+    isDark.value = false;
+  } else {
+    theme.global.name.value = "dark";
+    isDark.value = true;
+  }
+};
+
+onMounted(async () => {
+  userInfo.value = store.getUserInfo;
+});
+const router = useRouter();
+
+const doLogout = () => {
+  logout(
+    () => {
+      localStorage.removeItem("app");
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("refreshToken");
+      store.$reset();
+
+      router.replace({ path: "/login" });
+    },
+    (error) => {
+      window.alert(error);
+    }
+  );
+};
+</script>
 
 <style scoped></style>

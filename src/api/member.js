@@ -2,10 +2,13 @@ import { localAxios } from "@/utils/http-commons";
 
 const local = localAxios();
 
-const checkMemberDuplicate = (nickName, success, fail) => {
-    local.get(`/member/duplicate/nickname?name=${nickName}`, {headers : {'Authorization':null}})
-    .then(success)
-    .catch(fail)
+const checkMemberDuplicate = (nickName) => {
+    return local.get(`/member/duplicate/nickname?name=${nickName}`, {headers : {'Authorization':null}})
+}
+
+const checkEmailDuplicate = (email) => {
+    return local.get(`/member/duplicate/email?email=${email}`, {headers : {'Authorization':null}})
+
 }
 
 const getMemberByNickName = (nickName, success, fail) => {
@@ -33,4 +36,4 @@ const deleteMember = (success, fail) => {
     .catch(fail)
 }
 
-export { checkMemberDuplicate, getMemberByNickName, getMemberByJWT, updateMember, deleteMember,}
+export { checkMemberDuplicate, checkEmailDuplicate,  getMemberByNickName, getMemberByJWT, updateMember, deleteMember,}

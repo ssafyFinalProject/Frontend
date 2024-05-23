@@ -1,5 +1,5 @@
 <template>
-  <v-card class="mx-auto">
+  <v-card class="mx-auto ms-1 me-1 mt-1 mb-1">
     <v-container fluid>
       <v-row dense>
         <v-col v-for="item in searchs" :key="item.id" :cols="4">
@@ -24,7 +24,6 @@ const doGoToMap = (search) => {
 };
 
 const doAddFavorite = (search) => {
-  console.log(search);
   emit("addFavorite", search);
 };
 </script>

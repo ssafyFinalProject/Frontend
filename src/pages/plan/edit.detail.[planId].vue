@@ -74,7 +74,7 @@ const doRemovePost = (postId) => {
     postId,
     () => {
       posts.value = posts.value.filter((post) => post.postId !== postId);
-      window.alert("삭제되었습니다.");
+      // window.alert("삭제되었습니다.");
     },
     (error) => {
       window.alert(error);

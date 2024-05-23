@@ -21,12 +21,14 @@ const goBack = () => {
 <template>
   <v-container fluid>
     <v-text-field
+      class="ms-1 me-1"
       v-model="title"
       label="제목을 입력하세요."
       variant="solo"
     ></v-text-field>
 
     <v-textarea
+      class="ms-1 me-1"
       v-model="content"
       label="내용을 입력하세요."
       name="input"

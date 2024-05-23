@@ -17,7 +17,7 @@
       style="position: absolute; right: 16px"
     >
       &copy; 2024
-      <span class="d-none d-sm-inline-block">Baek-SeungHun · Jin-Juwon</span>
+      <span class="d-none d-sm-inline-block">Baek-SeungHun · Jin-Joowon</span>
       —
       <!-- <a
         class="text-decoration-none on-surface"

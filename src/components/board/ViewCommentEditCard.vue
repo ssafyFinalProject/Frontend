@@ -3,6 +3,9 @@ import { ref } from "vue";
 
 const emit = defineEmits(["editComment"]);
 const doEditComment = () => {
+  if (comment.value.trim() === "") {
+    return;
+  }
   emit("editComment", comment.value);
   comment.value = "";
 };
@@ -12,13 +15,12 @@ const comment = ref("");
 
 <template>
   <v-col cols="12">
-    <!-- append-inner-icon="mdi-comment" -->
     <v-textarea
       v-model="comment"
+      rows="1"
       class="mx-auto"
       label="댓글을 입력해주세요."
-      rows="1"
-      variant="outlined"
+      variant="solo"
       rounded="lg"
       @keyup.enter="doEditComment"
     ></v-textarea>

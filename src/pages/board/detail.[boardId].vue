@@ -1,8 +1,8 @@
 <script setup>
 import { ref, onMounted, onUpdated } from "vue";
 import { useAppStore } from "@/stores/app";
-import { useRoute } from "vue-router/auto";
-import { searchBoardById } from "@/api/board";
+import { useRoute, useRouter } from "vue-router/auto";
+import { searchBoardById, deleteBoard } from "@/api/board";
 import { writeComment, deleteComment } from "@/api/comment";
 
 onMounted(() => {
@@ -20,6 +20,7 @@ onMounted(() => {
 
 const store = useAppStore();
 const route = useRoute();
+const router = useRouter();
 
 const userInfo = store.userInfo;
 const boardId = ref(route.params.boardId);
@@ -67,12 +68,27 @@ const doDeleteComment = (id) => {
     }
   );
 };
+
+const doRemoveBoard = (boardId) => {
+  deleteBoard(
+    boardId,
+    () => {
+      router.push("/board");
+    },
+    (error) => {
+      window.alert(error);
+    }
+  );
+};
 </script>
 
 <template>
   <v-container class="fill-height">
     <v-responsive class="align-centerfill-height mx-auto" max-width="900">
-      <view-main-board-detail-card :boardInfo="board" />
+      <view-main-board-detail-card
+        @remove-board="doRemoveBoard"
+        :boardInfo="board"
+      />
 
       <v-divider class="mt-5 mb-5"></v-divider>
 

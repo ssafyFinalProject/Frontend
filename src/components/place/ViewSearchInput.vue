@@ -4,12 +4,13 @@
       <v-chip v-for="tag in tags" :key="tag" :text="tag"></v-chip>
     </v-chip-group>
 
+    <v-spacer class="mt-3"></v-spacer>
     <v-text-field
       v-model="searchContent"
       :append-inner-icon="searchContent ? 'mdi-map-search-outline' : ''"
       label="검색어"
       type="text"
-      variant="filled"
+      variant="solo"
       @click:append-inner="doSendSearchInfo"
       @keyup.enter="doSendSearchInfo"
     ></v-text-field>

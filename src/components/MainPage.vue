@@ -4,7 +4,7 @@
       <v-img class="mb-4" height="150" src="@/assets/ssafy-logo.png" />
 
       <div class="text-center">
-        <div class="text-body-2 font-weight-light mb-n1">We plan, We go</div>
+        <div class="text-body-1 font-weight-500 mb-n1">We plan, We go</div>
         <h1 class="text-h3 font-weight-bold mt-4">
           {{ userInfo.nickname }}님 환영합니다.
         </h1>
@@ -15,13 +15,13 @@
       <v-row>
         <v-col cols="12">
           <router-link :to="{ path: '/plan' }">
+            <!-- image="https://cdn.vuetifyjs.com/docs/images/one/create/feature.png" -->
             <v-card
               class="py-4"
               color="surface-variant"
-              image="https://cdn.vuetifyjs.com/docs/images/one/create/feature.png"
               prepend-icon="mdi-rocket-launch-outline"
+              variant="solo"
               rounded="lg"
-              variant="outlined"
             >
               <!-- <template #image>
               <v-img position="top right" />
@@ -69,8 +69,13 @@ import { getMemberByJWT } from "@/api/member";
 const store = useAppStore();
 const userInfo = ref({});
 onMounted(() => {
+  // if (store.getUserInfo) {
+  //   userInfo.value = store.getUserInfo;
+  //   return;
+  // }
   getMemberByJWT(
     ({ data }) => {
+      console.log(data);
       store.setUserInfo(data);
       userInfo.value = data;
     },
@@ -79,9 +84,6 @@ onMounted(() => {
     }
   );
 });
-
-console.log(userInfo.value);
-console.log(userInfo.value);
 
 const subCardInfos = [
   {
@@ -94,13 +96,13 @@ const subCardInfos = [
     title: "추천 여행지",
     icon: "mdi-lightbulb-on-outline",
     subtitle: "ChatGPT를 통한 추천을 받아보세요.",
-    link: "/recommend",
+    link: "/chatgpt",
   },
   {
     title: "핫플레이스",
     icon: "mdi-heart-outline",
     subtitle: "인기있는 여행지를 확인해보세요.",
-    link: "/member/mypage",
+    link: "/recommend",
   },
   {
     title: "커뮤니티",

@@ -11,7 +11,7 @@
       </div>
     </template>
 
-    <v-card-text class="bg-surface-light pt-4">
+    <v-card-text class="pt-1">
       <v-row>
         <v-col cols="12">
           <view-search-detail-card

@@ -24,6 +24,15 @@
           :plan="plan"
         />
       </v-row>
+      <v-container>
+        <v-spacer class="mt-10">
+          <div class="text-center" v-if="plans.length == 0">
+            <h1 class="text-h3 font-weight-bold mt-4 text-disabled">
+              여행 계획을 추가해보세요!
+            </h1>
+          </div>
+        </v-spacer>
+      </v-container>
     </v-responsive>
   </v-container>
 </template>
@@ -49,7 +58,7 @@ const doRemovePlan = (planId) => {
   deletePlan(
     planId,
     () => {
-      window.alert("계획이 삭제되었습니다.");
+      // window.alert("계획이 삭제되었습니다.");
       getPlanList(
         ({ data }) => {
           plans.value = data;

@@ -11,7 +11,7 @@ const getContent = (item) => {
       planDay: new Date(item.planDay).toISOString().split("T")[0],
     },
     () => {
-      window.alert("계획이 작성되었습니다.");
+      // window.alert("계획이 작성되었습니다.");
       router.push({ path: "/plan" });
     },
     (error) => {

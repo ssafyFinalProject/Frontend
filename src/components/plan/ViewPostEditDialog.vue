@@ -18,12 +18,17 @@
               <v-text-field
                 v-model="name"
                 label="제목*"
+                variant="solo"
                 required
               ></v-text-field>
             </v-col>
 
             <v-col cols="12">
-              <v-text-field v-model="content" label="설명"></v-text-field>
+              <v-text-field
+                v-model="content"
+                label="설명"
+                variant="solo"
+              ></v-text-field>
             </v-col>
 
             <v-col cols="12">
@@ -43,6 +48,7 @@
                 :item-props="true"
                 :items="items"
                 label="여행지*"
+                variant="solo"
                 required
               ></v-select>
             </v-col>

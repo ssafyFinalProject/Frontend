@@ -11,11 +11,14 @@ const store = useAppStore();
 const email = ref("");
 const password = ref("");
 
+const loading = ref(false);
+
 const doLogin = async () => {
   if (!validateEmail(email.value) || !validatePassword(password.value)) {
     return window.alert("아이디 또는 비밀번호 형식이 올바르지 않습니다");
   }
 
+  loading.value = true;
   login(
     {
       email: email.value,
@@ -34,12 +37,12 @@ const doLogin = async () => {
 
       localStorage.setItem("accessToken", token.accessToken);
       localStorage.setItem("refreshToken", token.refreshToken);
-
+      loading.value = false;
       router.push({ path: "/" });
     },
-    (error) => {
+    () => {
+      loading.value = false;
       window.alert("로그인에 실패했습니다");
-      console.log(error);
     }
   );
 };
@@ -48,18 +51,21 @@ const doLogin = async () => {
 <template>
   <v-container class="fill-height">
     <v-responsive class="align-centerfill-height mx-auto" max-width="900">
+      <view-loading v-if="loading"></view-loading>
       <div class="text-center">
         <h1 class="text-h4 font-weight-bold mt-4 mb-2">Hello there!</h1>
       </div>
       <v-sheet class="mx-auto" width="350">
         <v-form fast-fail @submit.prevent>
           <v-text-field
+            class="ms-1 me-1"
             v-model="email"
             label="이메일"
             :rules="[validateEmail]"
           ></v-text-field>
 
           <v-text-field
+            class="ms-1 me-1"
             v-model="password"
             label="비밀번호"
             type="password"
@@ -83,8 +89,5 @@ const doLogin = async () => {
 <style scoped>
 a {
   text-decoration: none;
-}
-
-#loginBtn {
 }
 </style>

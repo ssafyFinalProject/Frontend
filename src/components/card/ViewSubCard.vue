@@ -1,18 +1,11 @@
-<script setup>
-defineProps({
-  cardInfo: Object,
-});
-</script>
-
 <template>
   <v-col cols="6">
-    <!-- prepend-icon="mdi-circle-small" -->
     <v-card
       class="py-4"
       color="surface-variant"
       rel="noopener noreferrer"
       rounded="lg"
-      variant="text"
+      variant="solo"
       :append-icon="cardInfo.icon"
       :subtitle="cardInfo.subtitle"
       :title="cardInfo.title"
@@ -28,6 +21,12 @@ defineProps({
     </v-card>
   </v-col>
 </template>
+
+<script setup>
+defineProps({
+  cardInfo: Object,
+});
+</script>
 
 <style scoped>
 a {
